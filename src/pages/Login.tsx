@@ -4,49 +4,57 @@ import { toast } from "sonner";
 import { Button, Row } from "antd";
 import PHForm from "../components/form/PhForm";
 import PHInput from "../components/form/PHInput";
-// import { useNavigate } from "react-router-dom";
-// import { verifyToken } from "../utils/VerifyToken";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../redux/features/auth/authApi";
+import { TUser, setUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { verifyToken } from "../utils/VerifyToken";
+
 const Login = () => {
   const defaultValues = {
-    userId: "A-0001",
-    password: "admin1234",
+    username: "asif",
+    password: "123456",
   };
 
-  // const [login] = useLoginMutation();
-  // const navigate = useNavigate();
-  // console.log(data, "error: ", error);
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Loading...");
-    console.log(data, toastId);
+    // console.log(data, toastId);
+    try {
+      const userInfo = {
+        username: data.username,
+        password: data.password,
+      };
+      console.log(userInfo);
+
+      const res = await login(userInfo).unwrap();
+
+      const user = verifyToken(res.data.token as string) as TUser;
+
+      dispatch(setUser({ user: user, token: res.data.accessToken as string }));
+
+      toast.success("Logged in successfully", { id: toastId, duration: 2000 });
+      // navigate(`/${user.role}/dashboard`);
+      navigate(`/user/dashboard`);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    }
   };
-  // try {
-  //   const userInfo = {
-  //     id: data.userId,
-  //     password: data.password,
-  //   };
-
-  //   const res = await login(userInfo).unwrap();
-
-  //   const user = verifyToken(res.data.accessToken) as TUser;
-
-  //   dispatch(setUser({ user: user, token: res.data.accessToken }));
-
-  //   toast.success("Logged in successfully", { id: toastId, duration: 2000 });
-  //   navigate(`/${user.role}/dashboard`);
-  // } catch (error) {
-  //   toast.error("Something went wrong", { id: toastId, duration: 2000 });
-  // }
-  // };
 
   return (
-    <Row justify="center" align="middle" style={{ height: "100vh" }}>
-      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <PHInput type="text" name="userId" label="ID:" />
-        <PHInput type="text" name="password" label="Password" />
-        <Button htmlType="submit">Login</Button>
-      </PHForm>
-    </Row>
+    <div>
+      <Row justify="center" align="middle" style={{ height: "100vh" }}>
+        <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+          <PHInput type="text" name="username" label="UserName:" />
+          <PHInput type="text" name="password" label="Password" />
+          <Button htmlType="submit">Login</Button>
+        </PHForm>
+      </Row>
+    </div>
   );
 };
 
