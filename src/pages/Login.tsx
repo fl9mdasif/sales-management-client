@@ -12,7 +12,7 @@ import { verifyToken } from "../utils/VerifyToken";
 
 const Login = () => {
   const defaultValues = {
-    username: "asif",
+    username: "dev_asif",
     password: "123456",
   };
 
@@ -25,8 +25,8 @@ const Login = () => {
     // console.log(data, toastId);
     try {
       const userInfo = {
-        username: data.username,
-        password: data.password,
+        username: data.username.trim(),
+        password: data.password.trim(),
       };
       console.log(userInfo);
 
@@ -37,11 +37,15 @@ const Login = () => {
       dispatch(setUser({ user: user, token: res.data.accessToken as string }));
 
       toast.success("Logged in successfully", { id: toastId, duration: 2000 });
-      // navigate(`/${user.role}/dashboard`);
-      navigate(`/user/dashboard`);
+      navigate(`/${user.role}/dashboard`);
+      // navigate(`/user/dashboard`);
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      // console.log("err: ", error);
+      if (error?.data?.stack === "password") {
+        toast.error(error?.data?.message, { id: toastId, duration: 2000 });
+      } else {
+        toast.error("username do not match", { id: toastId, duration: 2000 });
+      }
     }
   };
 

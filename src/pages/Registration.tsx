@@ -2,8 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Button, Checkbox, Form, Input, Select } from "antd";
-
-const { Option } = Select;
+import { useRegisterMutation } from "../redux/features/auth/authApi";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { toast } from "sonner";
 
 const formItemLayout = {
   labelCol: {
@@ -28,41 +30,51 @@ const tailFormItemLayout = {
     },
   },
 };
+// validate phone number
+const validatePhoneNumber = (_: any, value: string) => {
+  const phoneNumberRegex = /^\d{11}$/; // 11 digits
+  return phoneNumberRegex.test(value)
+    ? Promise.resolve()
+    : Promise.reject(new Error("Please input a valid 11-digit phone number!"));
+};
 
-const App: React.FC = () => {
+const Registration: React.FC = () => {
   const [form] = Form.useForm();
+  const [register] = useRegisterMutation();
+  const navigate = useNavigate();
 
-  const onFinish = (values: any) => {
-    const { confirm, ...formDataWithoutConfirm } = values;
+  const onFinish = async (values: any) => {
+    const { confirm, ...userDataWithoutConfirm } = values;
 
-    console.log(formDataWithoutConfirm);
-    console.log("Received values of form: ", formDataWithoutConfirm);
+    const toastId = toast.loading("Loading...");
+    // console.log(data, toastId);
+    try {
+      console.log("Received values of form: ", userDataWithoutConfirm);
+
+      const res = await register(userDataWithoutConfirm).unwrap();
+      console.log("res", res);
+      if (res.success == true) {
+        toast.success("User registration successfully", {
+          id: toastId,
+          duration: 2000,
+        });
+        navigate(`/login`);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error) {
+        toast.error(`userName is already used`, {
+          id: toastId,
+          duration: 2000,
+        });
+      }
+    }
   };
-
-  // const prefixSelector = (
-  //   <Form.Item name="prefix" noStyle>
-  //     <Select style={{ width: 70 }}>
-  //       <Option value="88">+88</Option>
-  //       {/* <Option value="87">+</Option> */}
-  //     </Select>
-  //   </Form.Item>
-  // );
-
-  // validate phone number
-  const validatePhoneNumber = (_: any, value: string) => {
-    const phoneNumberRegex = /^\d{11}$/; // 11 digits
-    return phoneNumberRegex.test(value)
-      ? Promise.resolve()
-      : Promise.reject(
-          new Error("Please input a valid 11-digit phone number!")
-        );
-  };
-
   return (
     <div className="flex justify-center items-center h-[100vh]">
       <div>
-        <div>
-          <h1 className="className">Wel</h1>
+        <div className="flex items-center justify-center">
+          <h1 className="bold  text-xl">Welcome to Registration </h1>
         </div>
         <div className="h-72">
           <Form
@@ -210,4 +222,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Registration;
