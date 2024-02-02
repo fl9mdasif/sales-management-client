@@ -1,0 +1,39 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.scrollable-container {
+  max-height: 800px; /* Set a maximum height to trigger vertical scrolling */
+  overflow-y: auto;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+input {
+  width: 70px;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+  table {
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  }
+
+  th,
+  td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

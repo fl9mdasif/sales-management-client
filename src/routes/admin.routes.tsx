@@ -1,7 +1,7 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateAdmin from "../pages/admin/Create Users/CreateAdmin";
 import CreateStudent from "../pages/admin/Create Users/CreateStudent";
-import AcademicSemester from "../pages/admin/AcademicManagement/academicSemester.Api";
+import CreateProduct from "../pages/admin/ProductManagement/CreateProduct.Api";
+import Products from "../pages/admin/ProductManagement/Products";
 
 export const AdminPath = [
   {
@@ -10,28 +10,27 @@ export const AdminPath = [
     element: <AdminDashboard />,
   },
   {
-    name: "Academic Management",
+    name: "Product management",
     children: [
       {
-        name: "Academic Semester",
-        path: "academic-semesters",
-        element: <AcademicSemester />,
+        name: "Create Product",
+        path: "create-products",
+        element: <CreateProduct />,
+      },
+      {
+        name: "All Product",
+        path: "products",
+        element: <Products />,
       },
     ],
   },
   {
-    name: "User Management",
+    name: "Sales Management",
     children: [
       {
-        name: "Create Student",
-        path: "create-student",
+        name: "Sales History",
+        path: "sales-history",
         element: <CreateStudent />,
-      },
-
-      {
-        name: "Create Admin",
-        path: "create-admin",
-        element: <CreateAdmin />,
       },
     ],
   },

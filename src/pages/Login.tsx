@@ -40,7 +40,7 @@ const Login = () => {
       navigate(`/${user.role}/dashboard`);
       // navigate(`/user/dashboard`);
     } catch (error) {
-      // console.log("err: ", error);
+      console.log("err: ", error);
       if (error?.data?.stack === "password") {
         toast.error(error?.data?.message, { id: toastId, duration: 2000 });
       } else {

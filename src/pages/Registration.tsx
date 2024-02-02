@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button, Checkbox, Form, Input, Select } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import { useRegisterMutation } from "../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks";
 import { toast } from "sonner";
 
 const formItemLayout = {

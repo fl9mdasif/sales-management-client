@@ -1,10 +1,10 @@
 // import { useGetAllSemestersQuery } from "../../../redux/features/Acadmeic-Semester/academicSemesterApi";
 
-const AcademicSemester = () => {
+const CreateProduct = () => {
   // const { data } = useGetAllSemestersQuery(undefined);
 
   // console.log(data);
-  return <div>Academic Semester</div>;
+  return <div>create Product</div>;
 };
 
-export default AcademicSemester;
+export default CreateProduct;
