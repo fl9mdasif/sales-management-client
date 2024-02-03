@@ -1,4 +1,4 @@
-import { TSales } from "../../../types/sales.types";
+import { TOrder, TSales } from "../../../types/sales.types";
 import { baseApi } from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
@@ -22,4 +22,18 @@ const productApi = baseApi.injectEndpoints({
   }),
 });
 
+// create order
+const createOrderApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    createOrder: builder.mutation<TOrder[], void>({
+      query: (orderData) => ({
+        url: "/sales",
+        method: "POST",
+        body: orderData,
+      }),
+    }),
+  }),
+});
+
 export const { useSalesHistoryQuery } = productApi;
+export const { useCreateOrderMutation } = createOrderApi;

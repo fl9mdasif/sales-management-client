@@ -19,12 +19,13 @@ const Products = () => {
     gender: "",
     rawMaterial: "",
     size: "",
+    productName: "",
   });
 
   // api
-  // console.log("searchInputs", searchInputs);
 
   const filterValues = {
+    productName: searchInputs.productName,
     brand: searchInputs.brand,
     category: searchInputs.category,
     color: searchInputs.color,
@@ -52,12 +53,9 @@ const Products = () => {
   };
 
   // set product as filter requirements
-  useMemo(
-    () => filteredData(data, searchInputs),
-    [data, searchInputs]
-    // console.log(f);
-  );
-  // console.log("filter", data);
+  useMemo(() => filteredData(data, searchInputs), [data, searchInputs]);
+  console.log("searchInputs", searchInputs);
+  console.log("filter", data);
 
   // Extract unique brands from data
   const uniqueBrands = useMemo(() => {
@@ -76,9 +74,6 @@ const Products = () => {
     return [...new Set(data?.data?.map((item) => item.gender))];
   }, [data]);
 
-  console.log("len", data?.meta?.total);
-  console.log("data", uniqueGender);
-
   return (
     <div className="">
       <h1 className="font-bold text-green-700 text-2xl mb-6">
@@ -91,6 +86,20 @@ const Products = () => {
       </div>
       <div className="filter-container flex gap-3 flex-wrap mb-4">
         {/* Add filter components here */}
+        {/* sort by Price */}
+        <div className="filter-item ">
+          <div className="flex gap-2">
+            <label>Product Name:</label>
+            <input
+              type="text"
+              placeholder="Search by"
+              value={searchInputs.productName}
+              onChange={(e) =>
+                handleSearchInputChange("productName", e.target.value)
+              }
+            />
+          </div>
+        </div>
         {/* //color */}
         <div className="filter-item color">
           <label>color :</label>

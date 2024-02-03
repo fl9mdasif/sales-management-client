@@ -46,7 +46,7 @@ const TotalSales = () => {
               <td>{product.productId}</td>
               <td>{product.buyer}</td>
               <td>{product.quantity}</td>
-              <td>{product.dateOfSales}</td>
+              <td>{product.dateOfSales.slice(0, 10)}</td>
               <td>{product.totalAmount}</td>
             </tr>
           ))}

@@ -5,6 +5,14 @@ export type TSales = {
   yearly: string;
 };
 
+export type TOrder = {
+  productId: string;
+  buyer: string;
+  quantity: number;
+  totalAmount?: number;
+  dateOfSales: Date;
+};
+
 // Memoized filtered data based on search inputs
 export const salesFilteredData = (data, searchInputs) => {
   if (!data) return [];

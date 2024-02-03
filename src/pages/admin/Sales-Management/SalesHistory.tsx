@@ -29,7 +29,7 @@ const SalesHistory = () => {
   };
 
   useMemo(() => salesFilteredData(data, searchInputs), [data, searchInputs]);
-  const period = data?.data[0].period;
+  const period = data?.data[0]?.period;
   //   console.log("period", data?.data[0].data);
   return (
     <div>

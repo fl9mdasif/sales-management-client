@@ -26,6 +26,7 @@ export interface SearchInputs {
   color: string;
   gender: string;
   rawMaterial: string;
+  productName: string;
 }
 
 // Memoized filtered data based on search inputs
@@ -33,8 +34,9 @@ export const filteredData = (data: SearchInputs, searchInputs) => {
   if (!data) return [];
   // console.log("fi", data, searchInputs);
 
-  return data.data.filter((product: TProduct) => {
-    // Custom logic for each column's filteringc
+  return data?.data?.filter((product: TProduct) => {
+    // Custom logic for each column's filtering
+    const lowerProduct = (product.productName || "").toLowerCase();
     const lowerBrand = (product.brand || "").toLowerCase();
     const lowerCategory = (product.category || "").toLowerCase();
     const lowerColor = (product.color || "").toLowerCase();
@@ -45,6 +47,7 @@ export const filteredData = (data: SearchInputs, searchInputs) => {
     const lowerModel = (product.model || "").toLowerCase();
 
     return (
+      lowerProduct.includes(searchInputs.productName.toLowerCase()) &&
       lowerBrand.includes(searchInputs.brand.toLowerCase()) &&
       lowerCategory.includes(searchInputs.category.toLowerCase()) &&
       lowerColor.includes(searchInputs.color.toLowerCase()) &&
