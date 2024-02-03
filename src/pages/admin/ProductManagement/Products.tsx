@@ -54,8 +54,8 @@ const Products = () => {
 
   // set product as filter requirements
   useMemo(() => filteredData(data, searchInputs), [data, searchInputs]);
-  console.log("searchInputs", searchInputs);
-  console.log("filter", data);
+  // console.log("searchInputs", searchInputs);
+  // console.log("filter", data);
 
   // Extract unique brands from data
   const uniqueBrands = useMemo(() => {

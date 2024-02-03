@@ -1,30 +1,11 @@
-import { useState } from "react";
 import { useSalesHistoryQuery } from "../../../redux/features/sales/salesApi";
-import { TSales } from "../../../types/sales.types";
+import { TOrder } from "../../../types/sales.types";
 
 const TotalSales = () => {
-  // State to store search input for each column
-  const [searchInputs, setSearchInputs] = useState<TSales>({
-    daily: "",
-    weekly: "",
-    monthly: "",
-    yearly: "",
-  });
-
-  // api
-  console.log("searchInputs", searchInputs);
-
-  const filterValues = {
-    daily: searchInputs.daily,
-    weekly: searchInputs.weekly,
-    monthly: searchInputs.monthly,
-    yearly: searchInputs.yearly,
-  };
-
-  console.log(filterValues);
   const { data } = useSalesHistoryQuery(undefined);
 
-  console.log("sales", data);
+  // console.log(filterValues);
+  // console.log("sales", data);
 
   return (
     <div className="scrollable-container">
@@ -41,7 +22,7 @@ const TotalSales = () => {
         </thead>
 
         <tbody>
-          {data?.data?.map((product) => (
+          {data?.data?.map((product: TOrder) => (
             <tr key={product._id}>
               <td>{product.productId}</td>
               <td>{product.buyer}</td>
