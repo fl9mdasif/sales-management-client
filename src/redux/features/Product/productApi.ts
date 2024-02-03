@@ -24,7 +24,6 @@ const productApi = baseApi.injectEndpoints({
         url: "/shoes", // Adjust the endpoint URL as needed
         method: "GET",
         params: options,
-        // params: { brand: "n" },
       }),
     }),
   }),

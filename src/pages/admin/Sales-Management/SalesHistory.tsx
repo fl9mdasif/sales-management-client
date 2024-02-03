@@ -1,53 +1,78 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSalesHistoryQuery } from "../../../redux/features/sales/salesApi";
-import { TSales } from "../../../types/sales.types";
+import { TSales, salesFilteredData } from "../../../types/sales.types";
 
 const SalesHistory = () => {
   // State to store search input for each column
-  const [searchInputs, setSearchInputs] = useState<TSales>({
-    daily: "",
-    weekly: "",
-    monthly: "",
-    yearly: "",
+  type TInputField = {
+    history: string;
+  };
+  const [searchInputs, setSearchInputs] = useState<TInputField>({
+    history: "",
   });
 
   // api
-  console.log("searchInputs", searchInputs);
-
   const filterValues = {
-    daily: searchInputs.daily,
-    weekly: searchInputs.weekly,
-    monthly: searchInputs.monthly,
-    yearly: searchInputs.yearly,
+    ...searchInputs,
   };
 
-  console.log(filterValues);
-  const { data } = useSalesHistoryQuery(undefined);
+  const { data } = useSalesHistoryQuery(filterValues);
 
-  console.log("sales", data);
+  const handleSearchInputChange = (
+    field: string,
+    value: string | number | undefined
+  ) => {
+    setSearchInputs((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
+  useMemo(() => salesFilteredData(data, searchInputs), [data, searchInputs]);
+  const period = data?.data[0].period;
+  //   console.log("period", data?.data[0].data);
   return (
-    <div className="scrollable-container">
-      <table className="scrollable-container">
-        <thead>
-          <tr className="">
-            <th>period </th>
+    <div>
+      {/* Time period filter */}
+      <div className="filter-item color">
+        <label>Time Period:</label>
+        <select
+          value={searchInputs.history}
+          onChange={(e) => handleSearchInputChange("history", e.target.value)}
+          defaultValue="monthly"
+        >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
 
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Category</th>
-            <th>Color</th>
-            <th>Created </th>
-            <th>Gender</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th> Material</th>
-            <th>Size</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-      </table>
+      {/* Table */}
+      <div className="scrollable-container">
+        <table className="scrollable-container">
+          <thead>
+            <tr className="">
+              <th>{period}</th>
+              <th>Sales Amount</th>
+              <th>Number of Sales </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.data[0]?.data?.map((product, index) => (
+              <tr key={index + 1}>
+                <td>
+                  {product.week || product.day || product.month || product.year}
+                </td>
+                <td>{product.totalSales}</td>
+                <td>{product.averageQuantity}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
+
 export default SalesHistory;
