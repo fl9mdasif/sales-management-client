@@ -30,16 +30,17 @@ const productApi = baseApi.injectEndpoints({
   }),
 });
 
-// const productApi = baseApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     getAllProducts: builder.query<TProduct[], void>({
-//       query: () => ({
-//         url: "/shoes",
-//         method: "GET",
-//         // params: options,
-//       }),
-//     }),
-//   }),
-// });
+const createProductApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    createProduct: builder.mutation<TProduct[], void>({
+      query: (shoesData) => ({
+        url: "/shoes/create-shoes",
+        method: "POST",
+        body: shoesData,
+      }),
+    }),
+  }),
+});
 
 export const { useGetAllProductsQuery } = productApi;
+export const { useCreateProductMutation } = createProductApi;

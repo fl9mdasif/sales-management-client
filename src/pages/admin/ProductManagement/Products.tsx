@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useGetAllProductsQuery } from "../../../redux/features/Acadmeic-Semester/productApi";
+import { useGetAllProductsQuery } from "../../../redux/features/Product/productApi";
 import SingleProduct from "./SingleProduct";
 import "./styles.products.css";
 import { SearchInputs, filteredData } from "../../../types/product.types";
@@ -22,7 +22,7 @@ const Products = () => {
   });
 
   // api
-  console.log("searchInputs", searchInputs);
+  // console.log("searchInputs", searchInputs);
 
   const filterValues = {
     brand: searchInputs.brand,
@@ -51,64 +51,163 @@ const Products = () => {
     }));
   };
 
-  const filtered = useMemo(
+  // set product as filter requirements
+  useMemo(
     () => filteredData(data, searchInputs),
     [data, searchInputs]
+    // console.log(f);
   );
+  // console.log("filter", data);
 
-  console.log("filter", filtered);
+  // Extract unique brands from data
+  const uniqueBrands = useMemo(() => {
+    return [...new Set(data?.data?.map((item) => item.brand))];
+  }, [data]);
+  // Extract unique color  from data
+  const uniqueColors = useMemo(() => {
+    return [...new Set(data?.data?.map((item) => item.color))];
+  }, [data]);
+  // Extract unique size  from data
+  const uniqueSize = useMemo(() => {
+    return [...new Set(data?.data?.map((item) => item.size))];
+  }, [data]);
+  // Extract unique gender  from data
+  const uniqueGender = useMemo(() => {
+    return [...new Set(data?.data?.map((item) => item.gender))];
+  }, [data]);
+
+  console.log("len", data?.meta?.total);
+  console.log("data", uniqueGender);
 
   return (
-    <div className="scrollable-container">
-      <table>
-        <thead>
-          <tr className="">
-            <th>Cover </th>
-            <th>
-              {/* Search inputs for each column */}
-              Name
-            </th>
-            <th>
-              {/* Search inputs for each column */}
-              <div className="search-inputs">
-                <input
-                  type="text"
-                  placeholder="Search by"
-                  value={searchInputs.brand}
-                  onChange={(e) =>
-                    handleSearchInputChange("brand", e.target.value)
-                  }
-                />
-              </div>
-              Brand
-            </th>
-            <th>Model</th>
-            <th>Category</th>
-            <th>Color</th>
-            <th>Created </th>
-            <th>Gender</th>
-            <th>Price</th>
-            <th>
-              {/* Search inputs for each column */}
-              <div className="search-inputs">
-                <input
-                  type="text"
-                  placeholder="Search by"
-                  value={searchInputs.quantity}
-                  onChange={(e) =>
-                    handleSearchInputChange("quantity", e.target.value)
-                  }
-                />
-              </div>
-              Quantity
-            </th>
-            <th> Material</th>
-            <th>Size</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <SingleProduct products={data}></SingleProduct>
-      </table>
+    <div className="">
+      <h1 className="font-bold text-green-700 text-2xl mb-6">
+        Product Dashboard
+      </h1>
+      <div>
+        <p className="text-xl text-yellow-700 mb-5">
+          Total {data?.meta?.total} products in inventory
+        </p>
+      </div>
+      <div className="filter-container flex gap-3 flex-wrap mb-4">
+        {/* Add filter components here */}
+        {/* //color */}
+        <div className="filter-item color">
+          <label>color :</label>
+          <select
+            value={searchInputs.color}
+            onChange={(e) => handleSearchInputChange("color", e.target.value)}
+          >
+            <option value="">All Colors</option>
+            {uniqueColors?.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* brand */}
+        <div className="filter-item brand">
+          <label>Brand:</label>
+          <select
+            value={searchInputs.brand}
+            onChange={(e) => handleSearchInputChange("brand", e.target.value)}
+          >
+            <option value="">All Brands</option>
+            {uniqueBrands?.map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* gender */}
+        <div className="filter-item brand">
+          <label>Gender:</label>
+          <select
+            value={searchInputs.gender}
+            onChange={(e) => handleSearchInputChange("gender", e.target.value)}
+          >
+            <option value="">All</option>
+            {uniqueGender?.map((gender) => (
+              <option key={gender} value={gender}>
+                {gender}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* size */}
+        <div className="filter-item ">
+          <label>Size:</label>
+          <select
+            value={searchInputs.size}
+            onChange={(e) => handleSearchInputChange("size", e.target.value)}
+          >
+            <option value="">All size</option>
+            {uniqueSize?.map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* sort by Price */}
+        <div className="filter-item ">
+          <div className="flex gap-2">
+            <div>
+              <label>Minimum Price:</label>
+              <input
+                type="text"
+                placeholder="Search by"
+                value={searchInputs.minPrice}
+                onChange={(e) =>
+                  handleSearchInputChange("minPrice", e.target.value)
+                }
+              />
+            </div>
+            {/* max price */}
+            <div>
+              <label>Maximum Price:</label>
+              <input
+                type="text"
+                placeholder="Search by"
+                value={searchInputs.maxPrice}
+                onChange={(e) =>
+                  handleSearchInputChange("maxPrice", e.target.value)
+                }
+              />
+            </div>
+          </div>
+        </div>
+        {/* Add more filter options as needed */}
+      </div>
+
+      <div className="scrollable-container">
+        <table className="scrollable-container">
+          <thead>
+            <tr className="">
+              <th>Cover </th>
+              <th>
+                {/* Search inputs for each column */}
+                Name
+              </th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Category</th>
+              <th>Color</th>
+              <th>Created </th>
+              <th>Gender</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th> Material</th>
+              <th>Size</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <SingleProduct products={data}></SingleProduct>
+        </table>
+      </div>
     </div>
   );
 };

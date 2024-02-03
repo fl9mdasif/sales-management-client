@@ -1,5 +1,5 @@
 const SingleProduct = ({ products }) => {
-  console.log("sp", products);
+  // console.log("sp", products);
   const onEditButtonClick = (id: string) => {
     console.log(id);
   };

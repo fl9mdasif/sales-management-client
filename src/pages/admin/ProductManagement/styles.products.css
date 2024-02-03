@@ -13,10 +13,15 @@ td {
 }
 
 .scrollable-container {
-  max-height: 800px; /* Set a maximum height to trigger vertical scrolling */
+  max-height: 400px; /* Set a maximum height to trigger vertical scrolling */
   overflow-y: auto;
+  margin-bottom: 40px;
 }
 
+label {
+  font-size: 18px;
+  color: #0e2d8a;
+}
 th {
   background-color: #f2f2f2;
 }

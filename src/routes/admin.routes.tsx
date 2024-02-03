@@ -1,7 +1,8 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateStudent from "../pages/admin/Create Users/CreateStudent";
 import CreateProduct from "../pages/admin/ProductManagement/CreateProduct.Api";
 import Products from "../pages/admin/ProductManagement/Products";
+import SalesHistory from "../pages/admin/Sales-Management/SalesHistory";
+import TotalSales from "../pages/admin/Sales-Management/totalSales";
 
 export const AdminPath = [
   {
@@ -28,9 +29,14 @@ export const AdminPath = [
     name: "Sales Management",
     children: [
       {
+        name: "Total Sales",
+        path: "total-sales",
+        element: <TotalSales />,
+      },
+      {
         name: "Sales History",
         path: "sales-history",
-        element: <CreateStudent />,
+        element: <SalesHistory />,
       },
     ],
   },

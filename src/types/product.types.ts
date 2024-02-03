@@ -29,9 +29,9 @@ export interface SearchInputs {
 }
 
 // Memoized filtered data based on search inputs
-export const filteredData = (data, searchInputs) => {
+export const filteredData = (data: SearchInputs, searchInputs) => {
   if (!data) return [];
-  console.log("fi", data, searchInputs);
+  // console.log("fi", data, searchInputs);
 
   return data.data.filter((product: TProduct) => {
     // Custom logic for each column's filteringc
