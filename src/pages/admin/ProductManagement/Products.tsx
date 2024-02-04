@@ -1,11 +1,32 @@
 import { useMemo, useState } from "react";
-import { useGetAllProductsQuery } from "../../../redux/features/Product/productApi";
+import {
+  useDeleteProductsMutation,
+  useGetAllProductsQuery,
+} from "../../../redux/features/Product/productApi";
 import SingleProduct from "./SingleProduct";
 import "./styles.products.css";
 import { SearchInputs, filteredData } from "../../../types/product.types";
+import { toast } from "sonner";
 
 const Products = () => {
+  const [selectedShoes, setSelectedShoes] = useState<Set<string>>(new Set());
+  const [deleteProducts, isLoading, error] = useDeleteProductsMutation();
+
+  // deleteMultipleProducts
+
+  const deleteMultipleProducts = async () => {
+    // console.log("ll", [...selectedShoes]);
+    const result = await deleteProducts([...selectedShoes]);
+
+    setSelectedShoes(new Set());
+
+    if (result.data.statusCode === 200) {
+      toast.success("Product deleted Successfully");
+    }
+  };
+
   // State to store search input for each column
+
   const [searchInputs, setSearchInputs] = useState<SearchInputs>({
     sortBy: "startDate",
     sortOrder: "asc",
@@ -189,13 +210,23 @@ const Products = () => {
             </div>
           </div>
         </div>
-        {/* Add more filter options as needed */}
+
+        {/* // delete products */}
+        <button
+          onClick={() => deleteMultipleProducts()}
+          className="bg-red-500 text-white px-6 py-3 rounded-md text-md"
+        >
+          Delete Product
+        </button>
+        {isLoading && <p>Deleting...</p>}
+        {error && <p>Error: {error}</p>}
       </div>
 
       <div className="scrollable-container">
         <table className="scrollable-container">
           <thead>
             <tr className="">
+              <th>"" </th>
               <th>Cover </th>
               <th>
                 {/* Search inputs for each column */}
@@ -214,7 +245,19 @@ const Products = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <SingleProduct products={data}></SingleProduct>
+          <SingleProduct
+            products={data}
+            onChange={(id: string, checked: boolean) => {
+              const newSelectedShoes = new Set(selectedShoes);
+              if (checked) {
+                newSelectedShoes.add(id);
+              } else {
+                newSelectedShoes.delete(id);
+              }
+              setSelectedShoes(newSelectedShoes);
+            }}
+            selectedShoes={selectedShoes}
+          ></SingleProduct>
         </table>
       </div>
     </div>

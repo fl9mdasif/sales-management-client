@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useCreateOrderMutation } from "../../../redux/features/sales/salesApi";
 import { toast } from "sonner";
 import { TOrder } from "../../../types/sales.types";
+import { TProduct } from "../../../types/product.types";
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -14,11 +16,13 @@ const formItemLayout = {
     sm: { span: 14 },
   },
 };
-const SingleProduct = ({ products }) => {
+const SingleProduct = ({ products, onChange, selectedShoes }) => {
   // console.log("sp", products);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createOrder] = useCreateOrderMutation();
+
+  // console.log("ll", [...selectedShoes]);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -53,14 +57,24 @@ const SingleProduct = ({ products }) => {
     }
   };
   // create order
-  const openModal = async (id: string) => {
+  const openModal = async () => {
     setIsModalOpen(true);
   };
 
   return (
     <tbody>
-      {products?.data?.map((product) => (
+      {products?.data?.map((product: TProduct) => (
         <tr key={product._id}>
+          <td>
+            {/* checkbox */}
+
+            <input
+              type="checkbox"
+              checked={selectedShoes.has(product._id)}
+              onChange={(e) => onChange(product._id, e.target.checked)}
+            />
+          </td>
+
           <td>
             <img className="w-20  " src={product.coverPhoto} alt="product" />
           </td>
