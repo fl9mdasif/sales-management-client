@@ -38,8 +38,8 @@ const SalesHistory = () => {
         <label>Time Period:</label>
         <select
           value={searchInputs.history}
+          defaultValue={period}
           onChange={(e) => handleSearchInputChange("history", e.target.value)}
-          defaultValue="monthly"
         >
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>

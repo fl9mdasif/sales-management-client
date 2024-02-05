@@ -79,6 +79,7 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
         shoeId: selectedProductId,
         updatedData: updatedFieldData, // Correct property name
       });
+
       console.log("res", res);
 
       if (!res.data) {

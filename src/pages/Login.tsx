@@ -28,7 +28,7 @@ const Login = () => {
         username: data.username.trim(),
         password: data.password.trim(),
       };
-      console.log(userInfo);
+      // console.log(userInfo);
 
       const res = await login(userInfo).unwrap();
 

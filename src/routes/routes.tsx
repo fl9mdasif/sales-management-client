@@ -7,10 +7,6 @@ import Registration from "../pages/Registration";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
-  },
-  {
     path: "/user",
     element: <App />,
     children: routerGenerator(AdminPath),
