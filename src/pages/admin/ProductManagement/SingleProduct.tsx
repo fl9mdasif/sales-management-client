@@ -5,7 +5,10 @@ import { useCreateOrderMutation } from "../../../redux/features/sales/salesApi";
 import { toast } from "sonner";
 import { TOrder } from "../../../types/sales.types";
 import { TProduct } from "../../../types/product.types";
-import { useUpdateProductMutation } from "../../../redux/features/Product/productApi";
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from "../../../redux/features/Product/productApi";
 
 const formItemLayout = {
   labelCol: {
@@ -33,6 +36,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   );
   const [createOrder] = useCreateOrderMutation();
   const [updateProduct] = useUpdateProductMutation();
+  const [createShoes] = useCreateProductMutation();
 
   const [orderData, setOrderData] = useState<TOrder>(initialOrderData);
 
@@ -99,26 +103,20 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
     }
   };
 
-  // update product
-  const duplicateProductAndEdit = async (updatedFieldData: TOrder) => {
-    console.log(updatedFieldData);
+  // duplicate product
+  const duplicateProduct = async (duplicateData: TOrder) => {
+    const { _id, ...duplicateProductWithOut_id } = duplicateData;
+    // console.log(duplicateData);
+    console.log(duplicateProductWithOut_id);
     try {
       const toastId = toast.loading("Loading...");
-      console.log(selectedProductId);
+
       // Use the createShoes mutation to handle the API call
-      const res = await updateProduct({
-        shoeId: selectedProductId,
-        updatedData: updatedFieldData, // Correct property name
-      });
+      const res = await createShoes(duplicateProductWithOut_id);
       // console.log("res", res);
 
-      if (!res.data) {
-        toast.error(`Decrease quantity for order `, {
-          id: toastId,
-          duration: 2000,
-        });
-      } else {
-        toast.success("product created successfully", {
+      if (res) {
+        toast.success("Product duplicate successfully", {
           id: toastId,
           duration: 2000,
         });
@@ -330,13 +328,19 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
                 </Form>
               </div>
             </Modal>
-
+            <Button
+              className="bg-yellow-500 text-white font-bold"
+              onClick={() => duplicateProduct(product)}
+            >
+              Duplicate
+            </Button>
             <Button
               className="bg-red-500 text-white font-bold"
               onClick={() => openUpdateModal(product._id)}
             >
               Update
             </Button>
+
             {/* order modal  */}
             <Modal
               title="Order Modal"
