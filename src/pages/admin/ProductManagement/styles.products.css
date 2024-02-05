@@ -29,6 +29,9 @@ input {
   width: 70px;
 }
 
+input[type="checkbox"] {
+  width: 13px;
+}
 /* Media query for smaller screens */
 @media screen and (max-width: 600px) {
   table {

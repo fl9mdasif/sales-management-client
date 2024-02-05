@@ -68,6 +68,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
     console.log(id);
   };
 
+  // update product
   const updateProductWithFormValues = async (updatedFieldData: TOrder) => {
     console.log(updatedFieldData);
     try {
@@ -87,6 +88,37 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
         });
       } else {
         toast.success("Update product successfully", {
+          id: toastId,
+          duration: 2000,
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.error("Error creating shoes:", error);
+      toast.error("Error creating shoes. Please try again.");
+    }
+  };
+
+  // update product
+  const duplicateProductAndEdit = async (updatedFieldData: TOrder) => {
+    console.log(updatedFieldData);
+    try {
+      const toastId = toast.loading("Loading...");
+      console.log(selectedProductId);
+      // Use the createShoes mutation to handle the API call
+      const res = await updateProduct({
+        shoeId: selectedProductId,
+        updatedData: updatedFieldData, // Correct property name
+      });
+      // console.log("res", res);
+
+      if (!res.data) {
+        toast.error(`Decrease quantity for order `, {
+          id: toastId,
+          duration: 2000,
+        });
+      } else {
+        toast.success("product created successfully", {
           id: toastId,
           duration: 2000,
         });
@@ -157,8 +189,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
           <td className="flex flex-col">
             <Button
               onClick={() => openOrderModal(product._id)}
-              className="bg-green-600"
-              type="primary"
+              className="bg-green-600 font-bold text-white"
             >
               Order
             </Button>
@@ -304,7 +335,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
               className="bg-red-500 text-white font-bold"
               onClick={() => openUpdateModal(product._id)}
             >
-              Edit
+              Update
             </Button>
             {/* order modal  */}
             <Modal

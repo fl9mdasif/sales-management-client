@@ -48,15 +48,28 @@ const Login = () => {
       }
     }
   };
+  const navigateReg = () => {
+    navigate("/registration");
+  };
 
   return (
     <div>
-      <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <Row
+        justify="center"
+        align="middle"
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+      >
         <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
           <PHInput type="text" name="username" label="UserName:" />
           <PHInput type="text" name="password" label="Password" />
           <Button htmlType="submit">Login</Button>
         </PHForm>
+        <div className="mt-4">
+          Don't have a account?{" "}
+          <button className="text-red-800" onClick={navigateReg}>
+            Register now
+          </button>
+        </div>
       </Row>
     </div>
   );

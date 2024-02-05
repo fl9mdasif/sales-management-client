@@ -227,7 +227,7 @@ const Products = () => {
               <th>
                 <button
                   onClick={() => deleteMultipleProducts()}
-                  className="bg-red-500 text-white px-6 py-3 rounded-md text-md"
+                  className="bg-red- text-red-500 px- py-1 rounded-md "
                 >
                   Delete
                 </button>{" "}
