@@ -38,6 +38,16 @@ const createProductApi = baseApi.injectEndpoints({
         body: shoesData,
       }),
     }),
+    updateProduct: builder.mutation<
+      TProduct,
+      { shoeId: string; updatedData: TProduct }
+    >({
+      query: ({ shoeId, updatedData }) => ({
+        url: `/shoes/${shoeId}`, // Replace with your actual update endpoint
+        method: "PUT",
+        body: updatedData,
+      }),
+    }),
     deleteProducts: builder.mutation<ResponseType, string>({
       query: (ids) => ({
         url: `/shoes/shoeIds`,
@@ -49,5 +59,8 @@ const createProductApi = baseApi.injectEndpoints({
 });
 
 export const { useGetAllProductsQuery } = productApi;
-export const { useCreateProductMutation, useDeleteProductsMutation } =
-  createProductApi;
+export const {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductsMutation,
+} = createProductApi;

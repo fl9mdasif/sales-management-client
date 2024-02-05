@@ -19,9 +19,13 @@ const Products = () => {
 
     setSelectedShoes(new Set());
     refetch();
+    const toastId = toast.loading("Loading...");
 
     if (result.data.statusCode === 200) {
-      toast.success("Product deleted Successfully");
+      toast.success("Product deleted Successfully", {
+        id: toastId,
+        duration: 2000,
+      });
     }
   };
 
