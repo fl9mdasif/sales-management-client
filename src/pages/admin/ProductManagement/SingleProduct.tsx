@@ -16,37 +16,60 @@ const formItemLayout = {
     sm: { span: 14 },
   },
 };
+
 const SingleProduct = ({ products, onChange, selectedShoes }) => {
   // console.log("sp", products);
+  const initialOrderData = {
+    productId: "products?.productId",
+    buyer: "",
+    quantity: 0,
+    dateOfSales: "products.dateOfSale",
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null
+  );
+  //
   const [createOrder] = useCreateOrderMutation();
+
+  // State to manage form data
+  const [orderData, setOrderData] = useState<TOrder>(initialOrderData);
 
   // console.log("ll", [...selectedShoes]);
 
   const handleOk = () => {
     setIsModalOpen(false);
+    setSelectedProductId(null);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setSelectedProductId(null);
   };
 
-  const onEditButtonClick = (id: string) => {
-    console.log(id);
-  };
-  const onDeleteButtonClick = (id: string) => {
-    console.log(id);
+  // create order
+  const openModal = async (id: string) => {
+    setIsModalOpen(true);
+    setSelectedProductId(id);
   };
 
+  // place order with modal
   const onFinish = async (orderData: TOrder) => {
     const toastId = toast.loading("Loading...");
     try {
       // Use the createShoes mutation to handle the API call
       const res = await createOrder(orderData).unwrap();
-      // console.log("res", res);
-      if (res) {
-        toast.success("Product Created  successfully", {
+      // console.log("res", res.data);
+      if (!res.data) {
+        toast.error(`Decrease quantity for order `, {
+          id: toastId,
+          duration: 2000,
+        });
+      } else {
+        setOrderData(initialOrderData);
+        toast.success("Order Created  successfully", {
           id: toastId,
           duration: 2000,
         });
@@ -55,10 +78,6 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
       console.error("Error creating shoes:", error);
       toast.error("Error creating shoes. Please try again.");
     }
-  };
-  // create order
-  const openModal = async () => {
-    setIsModalOpen(true);
   };
 
   return (
@@ -91,15 +110,16 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
           <td>{product.size}</td>
           <td className="flex flex-col">
             <Button
-              onClick={() => openModal()}
+              onClick={() => openModal(product._id)}
               className="bg-green-600"
               type="primary"
             >
               Order
             </Button>
+            {/* order modal */}
             <Modal
               title="Basic Modal"
-              open={isModalOpen}
+              open={selectedProductId === product._id}
               onOk={handleOk}
               onCancel={handleCancel}
             >
@@ -146,19 +166,22 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
                   {/* button  */}
                   <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
                     <Button
-                      className="bg-green-600"
-                      type="primary"
+                      className="bg-green-600  text-white font-bold"
                       htmlType="submit"
                     >
-                      Order Now
+                      Create order
                     </Button>
                   </Form.Item>
                 </Form>
               </div>
             </Modal>
 
-            <button onClick={() => onEditButtonClick("/")}>Edit</button>
-            <button onClick={() => onDeleteButtonClick("/")}>Delete</button>
+            <Button
+              className="bg-red-500 text-white font-bold"
+              onClick={() => onEditButtonClick("/")}
+            >
+              Edit
+            </Button>
           </td>
         </tr>
       ))}

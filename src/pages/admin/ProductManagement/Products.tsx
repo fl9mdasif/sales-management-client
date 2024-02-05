@@ -13,12 +13,12 @@ const Products = () => {
   const [deleteProducts, isLoading, error] = useDeleteProductsMutation();
 
   // deleteMultipleProducts
-
   const deleteMultipleProducts = async () => {
     // console.log("ll", [...selectedShoes]);
     const result = await deleteProducts([...selectedShoes]);
 
     setSelectedShoes(new Set());
+    refetch();
 
     if (result.data.statusCode === 200) {
       toast.success("Product deleted Successfully");
@@ -61,7 +61,7 @@ const Products = () => {
     sortOrder: searchInputs.sortOrder,
   };
 
-  const { data } = useGetAllProductsQuery(filterValues);
+  const { data, refetch } = useGetAllProductsQuery(filterValues);
 
   const handleSearchInputChange = (
     field: string,
@@ -212,13 +212,7 @@ const Products = () => {
         </div>
 
         {/* // delete products */}
-        <button
-          onClick={() => deleteMultipleProducts()}
-          className="bg-red-500 text-white px-6 py-3 rounded-md text-md"
-        >
-          Delete Product
-        </button>
-        {isLoading && <p>Deleting...</p>}
+
         {error && <p>Error: {error}</p>}
       </div>
 
@@ -226,7 +220,14 @@ const Products = () => {
         <table className="scrollable-container">
           <thead>
             <tr className="">
-              <th>"" </th>
+              <th>
+                <button
+                  onClick={() => deleteMultipleProducts()}
+                  className="bg-red-500 text-white px-6 py-3 rounded-md text-md"
+                >
+                  Delete
+                </button>{" "}
+              </th>
               <th>Cover </th>
               <th>
                 {/* Search inputs for each column */}
