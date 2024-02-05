@@ -5,15 +5,17 @@ const TotalSales = () => {
   const { data } = useSalesHistoryQuery(undefined);
 
   // console.log(filterValues);
-  // console.log("sales", data);
+  // console.log("sales", data.data.length);
 
   return (
     <div className="scrollable-container">
+      <h1 className="text-2xl bold mb-4 text-center">Total sales</h1>
+
+      <h1>Total sales {data?.data?.length}</h1>
       <table className="scrollable-container">
         <thead>
           <tr className="">
             <th>ProductId </th>
-
             <th>Buyer</th>
             <th>Quantity</th>
             <th>Date of Sales</th>

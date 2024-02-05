@@ -113,8 +113,8 @@ const Products = () => {
         {/* Add filter components here */}
         {/* sort by Price */}
         <div className="filter-item ">
-          <div className="flex gap-2">
-            <label>Product Name:</label>
+          <div className="flex flex-col">
+            <label> Name:</label>
             <input
               type="text"
               placeholder="Search by"
@@ -156,7 +156,7 @@ const Products = () => {
           </select>
         </div>
         {/* gender */}
-        <div className="filter-item brand">
+        <div className="filter-item ">
           <label>Gender:</label>
           <select
             value={searchInputs.gender}
@@ -187,31 +187,30 @@ const Products = () => {
         </div>
 
         {/* sort by Price */}
-        <div className="filter-item ">
-          <div className="flex gap-2">
-            <div>
-              <label>Minimum Price:</label>
-              <input
-                type="text"
-                placeholder="Search by"
-                value={searchInputs.minPrice}
-                onChange={(e) =>
-                  handleSearchInputChange("minPrice", e.target.value)
-                }
-              />
-            </div>
-            {/* max price */}
-            <div>
-              <label>Maximum Price:</label>
-              <input
-                type="text"
-                placeholder="Search by"
-                value={searchInputs.maxPrice}
-                onChange={(e) =>
-                  handleSearchInputChange("maxPrice", e.target.value)
-                }
-              />
-            </div>
+        <div className="flex gap-3 ">
+          <div className="flex flex-col gap-2">
+            <label>Min Price:</label>
+            <input
+              type="text"
+              placeholder="min"
+              value={searchInputs.minPrice}
+              onChange={(e) =>
+                handleSearchInputChange("minPrice", e.target.value)
+              }
+            />
+          </div>
+
+          {/* max price */}
+          <div className="flex flex-col gap-2">
+            <label>Max Price:</label>
+            <input
+              type="text"
+              placeholder="Search by"
+              value={searchInputs.maxPrice}
+              onChange={(e) =>
+                handleSearchInputChange("maxPrice", e.target.value)
+              }
+            />
           </div>
         </div>
 

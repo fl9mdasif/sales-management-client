@@ -33,6 +33,7 @@ const SalesHistory = () => {
   //   console.log("period", data?.data[0].data);
   return (
     <div>
+      <h1 className="text-2xl bold mb-4 text-center">Sales History</h1>
       {/* Time period filter */}
       <div className="filter-item color">
         <label>Time Period:</label>

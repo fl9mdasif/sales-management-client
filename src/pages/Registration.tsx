@@ -42,6 +42,11 @@ const Registration: React.FC = () => {
   const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
+  const navigateReg = () => {
+    navigate("/login");
+  };
+
+  // register
   const onFinish = async (values: any) => {
     const { confirm, ...userDataWithoutConfirm } = values;
 
@@ -70,12 +75,12 @@ const Registration: React.FC = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center h-[100vh]">
+    <div className="flex flex-col justify-center items-center h-[100vh] ">
       <div>
         <div className="flex items-center justify-center">
           <h1 className="bold  text-xl">Welcome to Registration </h1>
         </div>
-        <div className="h-72">
+        <div className=" ">
           <Form
             {...formItemLayout}
             form={form}
@@ -215,6 +220,12 @@ const Registration: React.FC = () => {
               </Button>
             </Form.Item>
           </Form>
+        </div>
+        <div className="mt-1">
+          Already have a account?{" "}
+          <button className="text-red-800" onClick={navigateReg}>
+            Login now
+          </button>
         </div>
       </div>
     </div>

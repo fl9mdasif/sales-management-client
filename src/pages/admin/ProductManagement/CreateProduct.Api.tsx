@@ -38,7 +38,9 @@ const CreateProduct = () => {
     }
   };
   return (
-    <div className="mt-4 h-[100vh]  ">
+    <div className=" h-[100vh]  ">
+      <h1 className="text-2xl bold mb-4 text-center">Create Product</h1>
+
       <Form
         {...formItemLayout}
         variant="filled"

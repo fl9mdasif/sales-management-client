@@ -59,6 +59,11 @@ const Login = () => {
         align="middle"
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
+        <div>
+          <h1 className="text-2xl  font-bold py-6 text-blue-700">
+            Welcome to Login
+          </h1>
+        </div>
         <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
           <PHInput type="text" name="username" label="UserName:" />
           <PHInput type="text" name="password" label="Password" />

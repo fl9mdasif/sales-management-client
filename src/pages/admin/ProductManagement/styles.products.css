@@ -45,3 +45,9 @@ input[type="checkbox"] {
     box-sizing: border-box;
   }
 }
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
