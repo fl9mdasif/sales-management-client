@@ -101,7 +101,7 @@ const Products = () => {
 
   return (
     <div className="">
-      <h1 className="font-bold text-green-700 text-2xl mb-6">
+      <h1 className="font-bold text-green-700 text-2xl mb-2">
         Product Dashboard
       </h1>
       <div>
@@ -262,6 +262,7 @@ const Products = () => {
               setSelectedShoes(newSelectedShoes);
             }}
             selectedShoes={selectedShoes}
+            refetch={refetch}
           ></SingleProduct>
         </table>
       </div>

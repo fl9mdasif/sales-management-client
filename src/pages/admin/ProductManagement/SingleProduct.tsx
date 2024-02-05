@@ -18,7 +18,7 @@ const formItemLayout = {
   },
 };
 
-const SingleProduct = ({ products, onChange, selectedShoes }) => {
+const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   // console.log("sp", products);
   const initialOrderData = {
     productId: "products?.productId",
@@ -68,7 +68,6 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
     console.log(id);
   };
 
-  // place order with modal
   const updateProductWithFormValues = async (updatedFieldData: TOrder) => {
     console.log(updatedFieldData);
     try {
@@ -79,8 +78,7 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
         shoeId: selectedProductId,
         updatedData: updatedFieldData, // Correct property name
       });
-
-      console.log("res", res);
+      // console.log("res", res);
 
       if (!res.data) {
         toast.error(`Decrease quantity for order `, {
@@ -92,6 +90,7 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
           id: toastId,
           duration: 2000,
         });
+        refetch();
       }
     } catch (error) {
       console.error("Error creating shoes:", error);
@@ -99,11 +98,13 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
     }
   };
 
+  // place order with modal
   const onFinish = async (orderData: TOrder) => {
     const toastId = toast.loading("Loading...");
     try {
       // Use the createShoes mutation to handle the API call
       const res = await createOrder(orderData).unwrap();
+
       // console.log("res", res.data);
       if (!res.data) {
         toast.error(`Decrease quantity for order `, {
@@ -112,10 +113,12 @@ const SingleProduct = ({ products, onChange, selectedShoes }) => {
         });
       } else {
         setOrderData(initialOrderData);
+
         toast.success("Order Created  successfully", {
           id: toastId,
           duration: 2000,
         });
+        refetch();
       }
     } catch (error) {
       console.error("Error creating shoes:", error);

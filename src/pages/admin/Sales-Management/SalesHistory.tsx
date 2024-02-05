@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useSalesHistoryQuery } from "../../../redux/features/sales/salesApi";
-import { TSales, salesFilteredData } from "../../../types/sales.types";
+import { salesFilteredData } from "../../../types/sales.types";
 
 const SalesHistory = () => {
   // State to store search input for each column
