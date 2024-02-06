@@ -2,7 +2,6 @@
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useCreateProductMutation } from "../../../redux/features/Product/productApi";
 import { toast } from "sonner";
-import { TProduct } from "../../../types/product.types";
 
 const formItemLayout = {
   labelCol: {
@@ -18,9 +17,10 @@ const formItemLayout = {
 const CreateProduct = () => {
   const [createProduct] = useCreateProductMutation();
 
-  const onFinish = async (shoesData: TProduct) => {
+  const onFinish = async (shoesData: any) => {
     console.log(shoesData);
-    const res = await createProduct(shoesData).unwrap();
+    const res: any = await createProduct(shoesData).unwrap();
+    console.log(res);
     const toastId = toast.loading("Loading...");
     try {
       // Use the createShoes mutation to handle the API call

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TProduct = {
   brand: string;
-  _id: string;
+  _id?: string;
   category: string;
   color: string;
   coverPhoto: string;
@@ -11,10 +12,28 @@ export type TProduct = {
   productName: string;
   quantity: number;
   rawMaterial: string;
+  productDescription?: string;
   size: string;
+};
+export type TUpProduct = {
+  _id?: string;
+  brand?: string;
+  category?: string;
+  color?: string;
+  coverPhoto?: string;
+  createdAt?: string;
+  gender?: string;
+  model?: string;
+  price?: number;
+  productName?: string;
+  quantity?: number;
+  rawMaterial?: string;
+  productDescription?: string;
+  size?: string;
 };
 
 export interface SearchInputs {
+  [x: string]: any;
   sortBy: string;
   sortOrder: string;
   minPrice: number;
@@ -31,7 +50,7 @@ export interface SearchInputs {
 }
 
 // Memoized filtered data based on search inputs
-export const filteredData = (data: SearchInputs, searchInputs) => {
+export const filteredData = (data: SearchInputs, searchInputs: any) => {
   if (!data) return [];
   // console.log("fi", data, searchInputs);
 

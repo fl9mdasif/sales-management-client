@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useState } from "react";
 import { useSalesHistoryQuery } from "../../../redux/features/sales/salesApi";
 import { salesFilteredData } from "../../../types/sales.types";
@@ -12,11 +13,11 @@ const SalesHistory = () => {
   });
 
   // api
-  const filterValues = {
+  const filterValues: any = {
     ...searchInputs,
   };
 
-  const { data } = useSalesHistoryQuery(filterValues);
+  const { data }: any = useSalesHistoryQuery(filterValues);
 
   const handleSearchInputChange = (
     field: string,
@@ -60,7 +61,7 @@ const SalesHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data[0]?.data?.map((product, index) => (
+            {data?.data[0]?.data?.map((product: any, index: any) => (
               <tr key={index + 1}>
                 <td>
                   {product.week || product.day || product.month || product.year}

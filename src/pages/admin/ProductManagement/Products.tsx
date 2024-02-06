@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useState } from "react";
 import {
   useDeleteProductsMutation,
@@ -10,12 +11,14 @@ import { toast } from "sonner";
 
 const Products = () => {
   const [selectedShoes, setSelectedShoes] = useState<Set<string>>(new Set());
-  const [deleteProducts, isLoading, error] = useDeleteProductsMutation();
+  const [deleteProducts] = useDeleteProductsMutation();
 
   // deleteMultipleProducts
   const deleteMultipleProducts = async () => {
     // console.log("ll", [...selectedShoes]);
-    const result = await deleteProducts([...selectedShoes]);
+
+    const productsIds = [...selectedShoes] as string[];
+    const result: any = await deleteProducts(productsIds);
 
     setSelectedShoes(new Set());
     refetch();
@@ -65,7 +68,7 @@ const Products = () => {
     sortOrder: searchInputs.sortOrder,
   };
 
-  const { data, refetch } = useGetAllProductsQuery(filterValues);
+  const { data, refetch }: any = useGetAllProductsQuery(filterValues);
 
   const handleSearchInputChange = (
     field: string,
@@ -84,23 +87,23 @@ const Products = () => {
 
   // Extract unique brands from data
   const uniqueBrands = useMemo(() => {
-    return [...new Set(data?.data?.map((item) => item.brand))];
+    return [...new Set(data?.data?.map((item: any) => item.brand))];
   }, [data]);
   // Extract unique color  from data
   const uniqueColors = useMemo(() => {
-    return [...new Set(data?.data?.map((item) => item.color))];
+    return [...new Set(data?.data?.map((item: any) => item.color))];
   }, [data]);
   // Extract unique size  from data
   const uniqueSize = useMemo(() => {
-    return [...new Set(data?.data?.map((item) => item.size))];
+    return [...new Set(data?.data?.map((item: any) => item.size))];
   }, [data]);
   // Extract unique gender  from data
   const uniqueGender = useMemo(() => {
-    return [...new Set(data?.data?.map((item) => item.gender))];
+    return [...new Set(data?.data?.map((item: any) => item.gender))];
   }, [data]);
 
   return (
-    <div className="">
+    <div className="h-100">
       <h1 className="font-bold text-green-700 text-2xl mb-2">
         Product Dashboard
       </h1>
@@ -213,10 +216,6 @@ const Products = () => {
             />
           </div>
         </div>
-
-        {/* // delete products */}
-
-        {error && <p>Error: {error}</p>}
       </div>
 
       <div className="scrollable-container">

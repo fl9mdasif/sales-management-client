@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import Modal from "antd/es/modal/Modal";
 import { useState } from "react";
 import { useCreateOrderMutation } from "../../../redux/features/sales/salesApi";
 import { toast } from "sonner";
-import { TOrder } from "../../../types/sales.types";
 import { TProduct } from "../../../types/product.types";
 import {
   useCreateProductMutation,
@@ -21,14 +22,7 @@ const formItemLayout = {
   },
 };
 
-const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
-  // console.log("sp", products);
-  const initialOrderData = {
-    productId: "products?.productId",
-    buyer: "",
-    quantity: 0,
-    dateOfSales: "products.dateOfSale",
-  };
+const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
@@ -37,8 +31,6 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   const [createOrder] = useCreateOrderMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [createShoes] = useCreateProductMutation();
-
-  const [orderData, setOrderData] = useState<TOrder>(initialOrderData);
 
   const handleOrderModalOk = () => {
     setIsOrderModalOpen(false);
@@ -73,14 +65,14 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   };
 
   // update product
-  const updateProductWithFormValues = async (updatedFieldData: TOrder) => {
+  const updateProductWithFormValues = async (updatedFieldData: TProduct) => {
     console.log(updatedFieldData);
     try {
       const toastId = toast.loading("Loading...");
       console.log(selectedProductId);
       // Use the createShoes mutation to handle the API call
-      const res = await updateProduct({
-        shoeId: selectedProductId,
+      const res: any = await updateProduct({
+        shoeId: selectedProductId as string,
         updatedData: updatedFieldData, // Correct property name
       });
       // console.log("res", res);
@@ -104,8 +96,9 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   };
 
   // duplicate product
-  const duplicateProduct = async (duplicateData: TOrder) => {
-    const { _id, ...duplicateProductWithOut_id } = duplicateData;
+  const duplicateProduct = async (duplicateData: any) => {
+    const { _id, updatedAt, _v, createdAt, ...duplicateProductWithOut_id } =
+      duplicateData;
     // console.log(duplicateData);
     console.log(duplicateProductWithOut_id);
     try {
@@ -129,11 +122,11 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
   };
 
   // place order with modal
-  const onFinish = async (orderData: TOrder) => {
+  const onFinish = async (orderData: any) => {
     const toastId = toast.loading("Loading...");
     try {
       // Use the createShoes mutation to handle the API call
-      const res = await createOrder(orderData).unwrap();
+      const res: any = await createOrder(orderData).unwrap();
 
       // console.log("res", res.data);
       if (!res.data) {
@@ -142,7 +135,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
           duration: 2000,
         });
       } else {
-        setOrderData(initialOrderData);
+        // setOrderData(initialOrderData);
 
         toast.success("Order Created  successfully", {
           id: toastId,
@@ -186,7 +179,11 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
           <td>{product.size}</td>
           <td className="flex flex-col">
             <Button
-              onClick={() => openOrderModal(product._id)}
+              onClick={() => {
+                if (product._id) {
+                  openOrderModal(product._id);
+                }
+              }}
               className="bg-green-600 font-bold text-white"
             >
               Order
@@ -336,7 +333,11 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }) => {
             </Button>
             <Button
               className="bg-red-500 text-white font-bold"
-              onClick={() => openUpdateModal(product._id)}
+              onClick={() => {
+                if (product._id) {
+                  openUpdateModal(product._id);
+                }
+              }}
             >
               Update
             </Button>

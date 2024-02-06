@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node", "jwt-decode"],
+    "types": ["jwt-decode"],
 
     /* Linting */
     "strict": true,

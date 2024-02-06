@@ -48,7 +48,7 @@ const createProductApi = baseApi.injectEndpoints({
         body: updatedData,
       }),
     }),
-    deleteProducts: builder.mutation<ResponseType, string>({
+    deleteProducts: builder.mutation<ResponseType, string[]>({
       query: (ids) => ({
         url: `/shoes/shoeIds`,
         method: "DELETE",
