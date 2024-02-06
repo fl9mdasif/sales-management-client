@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FieldValues } from "react-hook-form";
+
 import { toast } from "sonner";
 import { Button, Row } from "antd";
 import PHForm from "../components/form/PhForm";
@@ -20,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: any) => {
     const toastId = toast.loading("Loading...");
     // console.log(data, toastId);
     try {
@@ -39,7 +40,7 @@ const Login = () => {
       toast.success("Logged in successfully", { id: toastId, duration: 2000 });
       navigate(`/${user.role}/dashboard`);
       // navigate(`/user/dashboard`);
-    } catch (error) {
+    } catch (error: any) {
       console.log("err: ", error);
       if (error?.data?.stack === "password") {
         toast.error(error?.data?.message, { id: toastId, duration: 2000 });

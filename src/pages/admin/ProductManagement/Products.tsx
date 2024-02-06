@@ -136,7 +136,7 @@ const Products = () => {
             onChange={(e) => handleSearchInputChange("color", e.target.value)}
           >
             <option value="">All Colors</option>
-            {uniqueColors?.map((item) => (
+            {uniqueColors?.map((item: any) => (
               <option key={item} value={item}>
                 {item}
               </option>
@@ -151,7 +151,7 @@ const Products = () => {
             onChange={(e) => handleSearchInputChange("brand", e.target.value)}
           >
             <option value="">All Brands</option>
-            {uniqueBrands?.map((brand) => (
+            {uniqueBrands?.map((brand: any) => (
               <option key={brand} value={brand}>
                 {brand}
               </option>
@@ -166,7 +166,7 @@ const Products = () => {
             onChange={(e) => handleSearchInputChange("gender", e.target.value)}
           >
             <option value="">All</option>
-            {uniqueGender?.map((gender) => (
+            {uniqueGender?.map((gender: any) => (
               <option key={gender} value={gender}>
                 {gender}
               </option>
@@ -181,7 +181,7 @@ const Products = () => {
             onChange={(e) => handleSearchInputChange("size", e.target.value)}
           >
             <option value="">All size</option>
-            {uniqueSize?.map((size) => (
+            {uniqueSize?.map((size: any) => (
               <option key={size} value={size}>
                 {size}
               </option>

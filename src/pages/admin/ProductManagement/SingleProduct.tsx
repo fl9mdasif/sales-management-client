@@ -24,7 +24,7 @@ const formItemLayout = {
 
 const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [, setIsUpdateModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
     null
   );
