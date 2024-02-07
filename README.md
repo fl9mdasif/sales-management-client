@@ -7,7 +7,7 @@
 1.
 
 ```npm
-git clone [repo link]
+git clone [Live Project link](https://sales-management-client-lake.vercel.app)
 ```
 
 2.

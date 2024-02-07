@@ -31,7 +31,8 @@ const SalesHistory = () => {
 
   useMemo(() => salesFilteredData(data, searchInputs), [data, searchInputs]);
   const period = data?.data[0]?.period;
-  //   console.log("period", data?.data[0].data);
+  const sales: any = data?.data[0]?.data;
+  console.log("period", sales);
   return (
     <div>
       <h1 className="text-2xl bold mb-4 text-center">Sales History</h1>
@@ -55,7 +56,7 @@ const SalesHistory = () => {
         <table className="scrollable-container">
           <thead>
             <tr className="">
-              <th>{period}</th>
+              <th>{period} sales</th>
               <th>Sales Amount</th>
               <th>Number of Sales </th>
             </tr>
@@ -63,9 +64,7 @@ const SalesHistory = () => {
           <tbody>
             {data?.data[0]?.data?.map((product: any, index: any) => (
               <tr key={index + 1}>
-                <td>
-                  {product.week || product.day || product.month || product.year}
-                </td>
+                <td>{product.period}</td>
                 <td>{product.totalSales}</td>
                 <td>{product.averageQuantity}</td>
               </tr>
