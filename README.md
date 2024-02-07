@@ -1,13 +1,13 @@
 # Sales management with React, Redux, TypeScript, Mongoose, JWT, Express ETC.
 
-[LIVE Website]('ffff')
+# Project [Live link](https://sales-management-client-lake.vercel.app)
 
 ## To run the project in locally
 
 1.
 
 ```npm
-git clone [Live Project link](https://sales-management-client-lake.vercel.app)
+git clone [github url]
 ```
 
 2.
