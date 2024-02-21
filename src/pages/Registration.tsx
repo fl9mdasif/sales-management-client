@@ -187,7 +187,8 @@ const Registration: React.FC = () => {
               initialValue="user" // Set default value here
               rules={[{ required: true, message: "Please input the role!" }]}
             >
-              <Input readOnly />
+              {/* <Input readOnly /> */}
+              <Input />
             </Form.Item>
 
             {/* Checkbox */}

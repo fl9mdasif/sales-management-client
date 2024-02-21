@@ -1,30 +1,31 @@
+import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { TProduct } from "../../../types/product.types";
 import { baseApi } from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProducts: builder.query<
-      TProduct[],
-      {
-        sortBy?: string;
-        sortOrder?: string;
-        minPrice?: number;
-        maxPrice?: number;
-        releasedAt?: string;
-        brand?: string;
-        model?: string;
-        size?: string;
-        category?: string;
-        color?: string;
-        gender?: string;
-        rawMaterial?: string;
-      }
-    >({
-      query: (options) => ({
-        url: "/shoes", // Adjust the endpoint URL as needed
-        method: "GET",
-        params: options,
-      }),
+    getAllProducts: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+
+        return {
+          url: "/shoes",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TProduct[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
     }),
   }),
 });

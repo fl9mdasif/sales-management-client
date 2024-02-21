@@ -2,14 +2,15 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
+// baseUrl: "https://sales-management-blush.vercel.app/api/v1",
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://sales-management-blush.vercel.app/api/v1",
-  // baseUrl: "http://localhost:5001/api/v1",
+  baseUrl: "http://localhost:5001/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
 
     if (token) {
+      console.log("t", token);
       headers.set("authorization", `${token}`);
     }
 

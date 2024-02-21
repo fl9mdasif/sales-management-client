@@ -35,6 +35,8 @@ const Login = () => {
 
       const user = verifyToken(res.data.token as string) as TUser;
 
+      // console.log("login", user, "res", res);
+
       dispatch(setUser({ user: user, token: res.data.accessToken as string }));
 
       toast.success("Logged in successfully", { id: toastId, duration: 2000 });

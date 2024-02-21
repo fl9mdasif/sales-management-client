@@ -1,24 +1,30 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Layout, Menu } from "antd";
 import { AdminPath } from "../../routes/admin.routes";
 import { sidebarItemsGenerator } from "../../utils/sidebarGenerator";
 import { useAppSelector } from "../../redux/hooks";
-// import { sidebarItemsGenerator } from "../../utils/sidebarGenerator";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { BuyerPath } from "../../routes/buyer.routes";
 
 const { Sider } = Layout;
 
 const userRole = {
-  USER: "user",
+  SELLER: "seller",
+  BUYER: "buyer",
+  SUPER_ADMIN: "superAdmin",
 };
 
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
 
-  let sidebarItems;
+  let sidebarItems: any;
 
   switch (user!.role) {
-    case "user":
-      sidebarItems = sidebarItemsGenerator(AdminPath, userRole.USER);
+    case "seller":
+      sidebarItems = sidebarItemsGenerator(AdminPath, userRole.SELLER);
+      break;
+    case "buyer":
+      sidebarItems = sidebarItemsGenerator(BuyerPath, userRole.BUYER);
       break;
 
     default:

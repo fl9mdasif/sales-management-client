@@ -52,23 +52,12 @@ const Products = () => {
 
   // api
 
-  const filterValues = {
-    productName: searchInputs.productName,
-    brand: searchInputs.brand,
-    category: searchInputs.category,
-    color: searchInputs.color,
-    gender: searchInputs.gender,
-    maxPrice: searchInputs.maxPrice,
-    minPrice: searchInputs.minPrice,
-    model: searchInputs.model,
-    rawMaterial: searchInputs.rawMaterial,
-    releasedAt: searchInputs.releasedAt,
-    size: searchInputs.size,
-    sortBy: searchInputs.sortBy,
-    sortOrder: searchInputs.sortOrder,
-  };
-
-  const { data, refetch }: any = useGetAllProductsQuery(filterValues);
+  const { data, refetch }: any = useGetAllProductsQuery([
+    { name: "limit", value: 10 },
+    { name: "page", value: 1 },
+    { name: "sort", value: "id" },
+    // ...params,
+  ]);
 
   const handleSearchInputChange = (
     field: string,
