@@ -1,4 +1,4 @@
-import AdminDashboard from "../pages/admin/AdminDashboard";
+import BuyerDashboard from "../pages/buyer/BuyerDashboard";
 import PolishService from "../pages/buyer/PolishService";
 import PolishStatus from "../pages/buyer/PolishStatus";
 import ProductData from "../pages/buyer/Products";
@@ -7,7 +7,7 @@ export const BuyerPath = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <AdminDashboard />,
+    element: <BuyerDashboard />,
   },
   {
     name: "Product management",

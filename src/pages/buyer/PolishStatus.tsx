@@ -48,7 +48,11 @@ const PolishStatus = () => {
     {
       title: "status",
       key: "status",
-      dataIndex: "status",
+      //   dataIndex: "status",
+      render: (item) => {
+        // console.log(item);
+        return <p className=" font-bold text-red-500">{item.status}</p>;
+      },
     },
 
     // {
