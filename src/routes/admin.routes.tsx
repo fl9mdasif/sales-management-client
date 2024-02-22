@@ -1,6 +1,7 @@
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateProduct from "../pages/admin/ProductManagement/CreateProduct.Api";
 import Products from "../pages/admin/ProductManagement/Products";
+import UpdatePolishResponse from "../pages/admin/ProductManagement/UpdatePolishResponse";
 import SalesHistory from "../pages/admin/Sales-Management/SalesHistory";
 
 export const AdminPath = [
@@ -31,6 +32,16 @@ export const AdminPath = [
         name: "Sales History",
         path: "sales-history",
         element: <SalesHistory />,
+      },
+    ],
+  },
+  {
+    name: "Polish Req Management",
+    children: [
+      {
+        name: "polish history",
+        path: "polish-history",
+        element: <UpdatePolishResponse />,
       },
     ],
   },

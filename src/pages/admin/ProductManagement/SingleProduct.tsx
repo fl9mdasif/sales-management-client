@@ -66,8 +66,9 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
 
   // update product
   const updateProductWithFormValues = async (updatedFieldData: TProduct) => {
-    console.log(updatedFieldData);
+    // console.log(updatedFieldData);
     try {
+      setIsUpdateModalOpen(false);
       const toastId = toast.loading("Loading...");
       console.log(selectedProductId);
       // Use the createShoes mutation to handle the API call
@@ -123,6 +124,8 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
 
   // place order with modal
   const onFinish = async (orderData: any) => {
+    setIsOrderModalOpen(false);
+
     const toastId = toast.loading("Loading...");
     try {
       // Use the createShoes mutation to handle the API call

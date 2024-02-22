@@ -2,17 +2,7 @@
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useCreateProductMutation } from "../../../redux/features/Product/productApi";
 import { toast } from "sonner";
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
+import { formItemLayout } from "../../../constants/global";
 
 const CreateProduct = () => {
   const [createProduct] = useCreateProductMutation();

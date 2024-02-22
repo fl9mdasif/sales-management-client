@@ -39,11 +39,13 @@ const ProductData = () => {
   const [selectedProductId, setSelectedProductId] = useState<string | null>(
     null
   );
+
   const openOrderModal = (id: string) => {
     setIsOrderModalOpen(true);
     setSelectedProductId(id);
-    console.log(id);
+    // console.log(id);
   };
+
   const handleOrderModalOk = () => {
     setIsOrderModalOpen(false);
     setSelectedProductId(null);
@@ -83,6 +85,7 @@ const ProductData = () => {
   const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 
   const [page, setPage] = useState(1);
+
   const {
     data: productData,
     // isLoading,
@@ -90,6 +93,16 @@ const ProductData = () => {
   } = useGetAllProductsQuery(params);
 
   //   console.log("params", params);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const onSearch = (value: string) => {
+    setSearchTerm(value);
+    setParams([
+      { name: "productName", value },
+      // Add other filters as needed
+    ]);
+  };
 
   const metaData = productData?.meta as any;
   // console.log("m", metaData);
@@ -137,6 +150,12 @@ const ProductData = () => {
       dataIndex: "productName",
     },
 
+    {
+      title: "Product Unique Id",
+      key: "key",
+
+      render: (item) => <p className="w-20">{item.key}</p>,
+    },
     {
       title: "Price.",
       key: "price",
@@ -380,12 +399,26 @@ const ProductData = () => {
       filters.size?.forEach((item) =>
         queryParams.push({ name: "size", value: item })
       );
+      // filters.productName?.forEach((item) =>
+      //   queryParams.push({ name: "productName", value: item })
+      // );
       setParams(queryParams);
     }
   };
 
   return (
     <>
+      <h1 className="font-bold">
+        Total : {metaData?.total} available shoes in the inventory
+      </h1>
+
+      <Input
+        style={{ width: "220px" }}
+        placeholder="Search by product name"
+        value={searchTerm}
+        onChange={(e) => onSearch(e.target.value)}
+      />
+
       <Table
         loading={isFetching}
         columns={columns}

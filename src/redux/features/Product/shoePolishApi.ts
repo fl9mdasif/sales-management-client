@@ -11,6 +11,17 @@ const createProductApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    // Update polish status
+    updatePolishStatus: builder.mutation<
+      any,
+      { polishId: string; updatedData: any }
+    >({
+      query: ({ polishId, updatedData }) => ({
+        url: `/shoePolish/${polishId}`,
+        method: "PUT",
+        body: updatedData,
+      }),
+    }),
     getMyPolishReq: builder.query({
       query: () => {
         return {
@@ -28,5 +39,8 @@ const createProductApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateShoePolishMutation, useGetMyPolishReqQuery } =
-  createProductApi;
+export const {
+  useCreateShoePolishMutation,
+  useGetMyPolishReqQuery,
+  useUpdatePolishStatusMutation,
+} = createProductApi;
