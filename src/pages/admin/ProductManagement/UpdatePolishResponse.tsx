@@ -118,7 +118,18 @@ const UpdatePolishResponse = () => {
       //   dataIndex: "status",
       render: (item) => {
         // console.log(item);
-        return <p className=" font-bold text-red-500">{item.status}</p>;
+        return (
+          <div className="  flex-1 flex  gap-2 items-center">
+            <div
+              className={`size-3 rounded-full 
+            ${item.status === "pending" ? "bg-red-500" : null} 
+            ${item.status === "in-progress" ? "bg-yellow-500" : null} 
+            ${item.status === "completed" ? "bg-green-500" : null} 
+           `}
+            ></div>
+            <p className={``}>{item.status}</p>
+          </div>
+        );
       },
     },
 
