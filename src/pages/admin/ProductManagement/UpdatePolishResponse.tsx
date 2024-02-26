@@ -149,7 +149,7 @@ const UpdatePolishResponse = () => {
               }}
               className="bg-green-600 font-bold text-white"
             >
-              Order
+              Update Status
             </Button>
             {/* </Link> */}
             {/* order modal  */}

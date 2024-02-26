@@ -328,6 +328,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
                 </Form>
               </div>
             </Modal>
+
             <Button
               className="bg-yellow-500 text-white font-bold"
               onClick={() => duplicateProduct(product)}
@@ -346,6 +347,7 @@ const SingleProduct = ({ products, onChange, selectedShoes, refetch }: any) => {
             </Button>
 
             {/* order modal  */}
+
             <Modal
               title="Order Modal"
               open={isOrderModalOpen && selectedProductId === product._id}

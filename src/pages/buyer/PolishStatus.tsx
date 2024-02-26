@@ -66,23 +66,6 @@ const PolishStatus = () => {
         );
       },
     },
-
-    // {
-    //   title: "Action",
-    //   key: "x",
-    //   render: (item) => {
-    //     console.log(item);
-    //     return (
-    //       <Space>
-    //         {/* <Link to={`/seller/${item.key}`}> */}
-    //         <Button className="bg-green-600 font-bold text-white">Order</Button>
-    //         {/* </Link> */}
-    //         {/* order modal  */}
-    //       </Space>
-    //     );
-    //   },
-    //   width: "1%",
-    // },
   ];
 
   return (
