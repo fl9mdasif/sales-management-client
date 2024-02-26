@@ -60,6 +60,7 @@ const baseQuery = fetchBaseQuery({
 
 //   return result;
 // };
+
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
   reducerPath: "baseApi",
