@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Select } from "antd";
 import { useRegisterMutation } from "../redux/features/auth/authApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -181,14 +181,11 @@ const Registration: React.FC = () => {
             </Form.Item>
 
             {/* role */}
-            <Form.Item
-              name="role"
-              label="Role"
-              initialValue="user" // Set default value here
-              rules={[{ required: true, message: "Please input the role!" }]}
-            >
-              {/* <Input readOnly /> */}
-              <Input />
+            <Form.Item label="role" name="role">
+              <Select>
+                <Select.Option value="buyer">Buyer</Select.Option>
+                <Select.Option value="seller">Seller</Select.Option>
+              </Select>
             </Form.Item>
 
             {/* Checkbox */}

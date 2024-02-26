@@ -56,8 +56,8 @@ const SalesHistory = () => {
         <table className="scrollable-container">
           <thead>
             <tr className="">
-              <th>{period} sales</th>
-              <th>Sales Amount</th>
+              <th className="mr-4">{period} sales</th>
+              <th className="mr-4">Sales Amount</th>
               <th>Number of Sales </th>
             </tr>
           </thead>

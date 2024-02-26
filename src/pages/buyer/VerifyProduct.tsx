@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Row } from "antd";
+import { Button } from "antd";
 import PHForm from "../../components/form/PhForm";
 import PHInput from "../../components/form/PHInput";
 import { toast } from "sonner";
@@ -48,22 +48,17 @@ const VerifyProduct = () => {
 
   return (
     <div>
-      <Row
-        justify="start"
-        align="middle"
-        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
-      >
-        <div className="flex flex-col justify-center items-center mb-6">
-          <h1 className="text-2xl   font-bold py-6 text-blue-700">
-            Verify product with unique ID,
-          </h1>
-          <p className="text-red-300">Copy a product's unique id </p>
-        </div>
-        <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-          <PHInput type="text" name="shoeId" label="Product Id" />
-          <Button htmlType="submit">Verify Product</Button>
-        </PHForm>
-      </Row>
+      <div className="flex flex-col justify-center items-center mb-4">
+        <h1 className="text-2xl   font-bold py-4 text-blue-700">
+          Verify product with unique ID,
+        </h1>
+        <p className="text-red-300">Copy a product's unique id </p>
+      </div>
+      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <PHInput type="text" name="shoeId" label="Product Id" />
+        <Button htmlType="submit">Verify Product</Button>
+      </PHForm>
+
       <div className="mt-4">
         {product && (
           <div className="product-details-container">

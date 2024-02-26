@@ -44,6 +44,11 @@ const PolishStatus = () => {
       key: "polishType",
       dataIndex: "polishType",
     },
+    {
+      title: "Instructions",
+      key: "instructions",
+      dataIndex: "instructions",
+    },
 
     // gender
     {

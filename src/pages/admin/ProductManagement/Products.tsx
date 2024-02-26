@@ -268,7 +268,7 @@ const ProductData = () => {
       render: (item) => (
         <input
           type="checkbox"
-          checked={false}
+          // checked={productId === item.key}
           onChange={(e) => onChangeCheckbox(item.key, e.target.checked)}
         />
       ),
@@ -728,15 +728,21 @@ const ProductData = () => {
       <h1 className="font-bold">
         Total : {metaData?.total} available shoes in the inventory
       </h1>
+      <div className="flex flex-col    ">
+        <Input
+          style={{ width: "220px" }}
+          placeholder="Search by product name"
+          value={searchTerm}
+          onChange={(e) => onSearch(e.target.value)}
+        />
 
-      <Input
-        style={{ width: "220px" }}
-        placeholder="Search by product name"
-        value={searchTerm}
-        onChange={(e) => onSearch(e.target.value)}
-      />
-
-      <Button onClick={() => deleteMultipleProducts()}>Delete</Button>
+        <Button
+          className="bg-red-500 w-48 text-white bold-md"
+          onClick={() => deleteMultipleProducts()}
+        >
+          Delete Selected Shoes
+        </Button>
+      </div>
       <Table
         loading={isFetching}
         columns={columns}
