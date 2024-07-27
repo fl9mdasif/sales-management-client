@@ -66,7 +66,7 @@ Check out the live version of the project [Sales management Live link](https://s
 ### Technologies Used
 - **Frontend**: React, Redux, Tailwind, Daisy UI
 - **Backend**: Node.js, Express
-- **Database**: MongoDB
+- **Database**: MongoDB, Mongoose
 - **Authentication**: JWT
 - **Deployment**: vercel
 
