@@ -78,12 +78,12 @@ Check out the live version of the project [Sales management Live link](https://s
    ```
     **run this code**:
    ```bash
-     npm run dev
+     npm run start-dev
    ```
 
 2. **Clone the Server repository**:
    ```bash
-     git clone https://github.com/fl9mdasif/pet-adoption-prisma-express.git
+     git clone https://github.com/fl9mdasif/sales-management-server
    ```
    **run the server side code**:
      ```bash
